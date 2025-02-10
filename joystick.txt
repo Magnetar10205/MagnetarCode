@@ -1,0 +1,5 @@
+System.out.println("X Axis (0): " + joystick.getRawAxis(0));
+System.out.println("Y Axis (1): " + joystick.getRawAxis(1));
+System.out.println("Trigger Left (2): " + joystick.getRawAxis(2));
+System.out.println("Trigger Right (3): " + joystick.getRawAxis(3));
+
