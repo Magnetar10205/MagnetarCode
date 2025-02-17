@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,6 +22,9 @@ public class Drivetrain extends SubsystemBase {
   public MotorControllerGroup leftMotors;
   public MotorControllerGroup rightMotors;
   public DifferentialDrive drive;
+
+  // Maksimum hız limiti tanımı (örneğin maksimum %50 hız)
+  private static final double SPEED_LIMIT = 0.5;
 
   public Drivetrain(int gamepadPort, int leftFrontMotorPort, int leftBackMotorPort, int rightFrontMotorPort, int rightBackMotorPort, Joystick joystick) {
     gamepad = joystick;
@@ -59,25 +58,24 @@ public class Drivetrain extends SubsystemBase {
     double forward = Math.signum(rawForward) * Math.pow(rawForward, 2);
     double turn = Math.signum(rawTurn) * Math.pow(rawTurn, 2);
 
+    // Hız limitini uygula
+    forward *= SPEED_LIMIT;
+    turn *= SPEED_LIMIT;
+
     // Eğer joystick hareketsizse motorları durdur
     if (forward == 0 && turn == 0) {
         drive.arcadeDrive(0, 0);
     } else {
         drive.arcadeDrive(forward, turn);
     }
-}
-
-
-  public void NormalArcadeDrive(double x,double y){
-    drive.arcadeDrive(x, y);
   }
 
+  public void NormalArcadeDrive(double x, double y){
+    drive.arcadeDrive(x * SPEED_LIMIT, y * SPEED_LIMIT);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-
-
 }
