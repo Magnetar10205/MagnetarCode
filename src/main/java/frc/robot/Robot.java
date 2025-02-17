@@ -85,11 +85,16 @@ public class Robot extends TimedRobot {
       driveTrain.drive.arcadeDrive(0,0.7);
     }else if (driveTrain.gamepad.getRawButton(7)){
       driveTrain.drive.arcadeDrive(0,-0.7);
+    }else if (driveTrain.gamepad.getRawButton(5)){
+      driveTrain.drive.arcadeDrive(0,-0.3);
+    }else if (driveTrain.gamepad.getRawButton(6)){
+    driveTrain.drive.arcadeDrive(0,0.3);
+    }else if (driveTrain.gamepad.getRawButton(4)){
+      driveTrain.drive.arcadeDrive(0.,0);
+      
     }else{
 
       driveTrain.DriveArcade();
-
-    }
 
       //  driveTrain.DriveArcade();
 
@@ -104,7 +109,7 @@ public class Robot extends TimedRobot {
        }
 
        SmartDashboard.putNumber("Joystick Y ", -gamepad.getY());
-       SmartDashboard.putNumber("Joystick Y ", gamepad.getX());
+       SmartDashboard.putNumber("Joystick Y ", gamepad.getX());}
 
   
 }
