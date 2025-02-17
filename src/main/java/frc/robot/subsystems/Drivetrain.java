@@ -24,7 +24,7 @@ public class Drivetrain extends SubsystemBase {
   public DifferentialDrive drive;
 
   // Maksimum hız limiti tanımı (örneğin maksimum %50 hız)
-  private static final double SPEED_LIMIT = 0.5;
+  private static final double SPEED_LIMIT = 0.8;
 
   public Drivetrain(int gamepadPort, int leftFrontMotorPort, int leftBackMotorPort, int rightFrontMotorPort, int rightBackMotorPort, Joystick joystick) {
     gamepad = joystick;

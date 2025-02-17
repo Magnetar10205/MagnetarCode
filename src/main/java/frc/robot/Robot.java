@@ -79,12 +79,18 @@ public class Robot extends TimedRobot {
     System.out.println("Teleop Mode Started");
   }
 
-  @Override
   public void teleopPeriodic() {
     if (driveTrain.gamepad.getRawButton(8)){
       driveTrain.drive.arcadeDrive(0,0.7);
     }else if (driveTrain.gamepad.getRawButton(7)){
       driveTrain.drive.arcadeDrive(0,-0.7);
+    }else if (driveTrain.gamepad.getRawButton(5)){
+      driveTrain.drive.arcadeDrive(0,-0.3);
+    }else if (driveTrain.gamepad.getRawButton(6)){
+    driveTrain.drive.arcadeDrive(0,0.3);
+    }else if (driveTrain.gamepad.getRawButton(4)){
+      driveTrain.drive.arcadeDrive(0.,0);
+      
     }else{
 
       driveTrain.DriveArcade();
