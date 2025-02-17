@@ -81,30 +81,30 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // if (driveTrain.gamepad.getRawButton(8)){
-    //   driveTrain.drive.arcadeDrive(0,0.7);
-    // }else if (driveTrain.gamepad.getRawButton(7)){
-    //   driveTrain.drive.arcadeDrive(0,-0.7);
-    // }else{
+     if (driveTrain.gamepad.getRawButton(8)){
+       driveTrain.drive.arcadeDrive(0,0.7);
+     }else if (driveTrain.gamepad.getRawButton(7)){
+       driveTrain.drive.arcadeDrive(0,-0.7);
+     }else{
 
-    //   driveTrain.DriveArcade();
+       driveTrain.DriveArcade();
 
-    // }
+     }
 
-    driveTrain.DriveArcade();
-
-
+    
 
 
-      // for (int i = 1; i <= 16; i++) { // 1'den 12'ye kadar tüm tuşları kontrol et
-      //     if (gamepad.getRawButtonPressed(i)) { // Eğer butona basıldıysa
-      //         DriverStation.reportWarning("Basılan tuş ID: " + i, false);
-      //         SmartDashboard.putNumber("Basılan Tuş", i);
-      //     }
-      // }
 
-      // SmartDashboard.putNumber("Joystick Y ", -gamepad.getY());
-      // SmartDashboard.putNumber("Joystick Y ", gamepad.getX());
+
+       for (int i = 1; i <= 16; i++) { // 1'den 12'ye kadar tüm tuşları kontrol et
+           if (gamepad.getRawButtonPressed(i)) { // Eğer butona basıldıysa
+               DriverStation.reportWarning("Basılan tuş ID: " + i, false);
+               SmartDashboard.putNumber("Basılan Tuş", i);
+           }
+       }
+
+       SmartDashboard.putNumber("Joystick Y ", -gamepad.getY());
+       SmartDashboard.putNumber("Joystick Y ", gamepad.getX());
 
   
 }
