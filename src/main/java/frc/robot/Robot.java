@@ -80,17 +80,21 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // if (driveTrain.gamepad.getRawButton(8)){
-    //   driveTrain.drive.arcadeDrive(0,0.7);
-    // }else if (driveTrain.gamepad.getRawButton(7)){
-    //   driveTrain.drive.arcadeDrive(0,-0.7);
-    // }else{
+     if (driveTrain.gamepad.getRawButton(8)){
+       driveTrain.drive.arcadeDrive(0,0.7);
+     }else if (driveTrain.gamepad.getRawButton(7)){
+       driveTrain.drive.arcadeDrive(0,-0.7);
+     }else if (driveTrain.gamepad.getRawButton(5)){
+      driveTrain.drive.arcadeDrive(0,-0.7);
+     }else if (driveTrain.gamepad.getRawButton(6)){
+      driveTrain.drive.arcadeDrive(0,0.7);
+     }else{
 
-    //   driveTrain.DriveArcade();
+       driveTrain.DriveArcade();
 
-    // }
+     }
 
-    driveTrain.DriveArcade();
+    // driveTrain.DriveArcade();
 
 
 
