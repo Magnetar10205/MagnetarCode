@@ -38,9 +38,9 @@ public class ElevatorCode extends SubsystemBase {
     // Preset modu: 0 = devrede değil, 1-4 = ilgili preset aktif
     private int targetPreset = 0;
     
-    public ElevatorCode() {
+    public ElevatorCode(Joystick joystick,int MotorPort) {
         elevatorMotor = new Spark(MOTOR_PORT);
-        joystick = new Joystick(JOYSTICK_PORT);
+        this.joystick = joystick;
         
         limitSwitch1 = new DigitalInput(LIMIT_SWITCH_1_PORT);
         limitSwitch2 = new DigitalInput(LIMIT_SWITCH_2_PORT);
