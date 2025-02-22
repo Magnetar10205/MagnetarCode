@@ -9,6 +9,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ElevatorCode;
+import frc.robot.subsystems.Alg;
 
 public class Robot extends TimedRobot {
     private final Joystick joystick = new Joystick(0); // USB port 0
@@ -17,6 +18,7 @@ public class Robot extends TimedRobot {
     private final Coral coralSubsystem = new Coral(joystick, 6);
     private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 5);
     private double startTime;
+    private final Alg algSubsystem = new Alg(joystick, 4);
 
     @Override
     public void robotPeriodic() {}
@@ -52,7 +54,10 @@ public class Robot extends TimedRobot {
         
         boolean button1 = joystick.getRawButton(7);
         boolean button2 = joystick.getRawButton(8);
-        
+        boolean button3 = joystick.getRawButton(9);
+        boolean button4 = joystick.getRawButton(10);
+
+
         if (button1 && button2) {
             coralSubsystem.stopMotor();
         } else if (button1) {
@@ -63,7 +68,20 @@ public class Robot extends TimedRobot {
             coralSubsystem.stopMotor();
         }
 
+        if (button3 && button4) {
+            algSubsystem.stopMotor();
+        } else if (button3) {
+            algSubsystem.intakeIn();
+        } else if (button4) {
+            algSubsystem.intakeOut();
+        } else {
+            algSubsystem.stopMotor();
+        }
+
+
         elevatorSubsystem.periodic();
+
+        
         
         for (int i = 1; i <= 12; i++) { // 12 tuş sınırı varsayımı
             if (joystick.getRawButtonPressed(i)) {
