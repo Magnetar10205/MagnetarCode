@@ -1,12 +1,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class ElevatorCode extends SubsystemBase {
-    private final Spark elevatorMotor;
+    private final PWMVictorSPX elevatorMotor;
     private final Joystick joystick;
     
     // Motor ve joystick portları
@@ -18,10 +19,10 @@ public class ElevatorCode extends SubsystemBase {
     private static final int DOWN_BUTTON = 5; // LB tuşu
     
     // Preset butonları
-    private static final int PRESET_1_BUTTON = 2; // B butonu
-    private static final int PRESET_2_BUTTON = 1; // A butonu
-    private static final int PRESET_3_BUTTON = 4; // Y butonu
-    private static final int PRESET_4_BUTTON = 3; // X butonu
+    private static final int PRESET_1_BUTTON = 2; // X butonu
+    private static final int PRESET_2_BUTTON = 1; // Kare butonu
+    private static final int PRESET_3_BUTTON = 4; // Üçgen butonu
+    private static final int PRESET_4_BUTTON = 3; // Daire butonu
 
     // Limit switch portları
     private static final int LIMIT_SWITCH_1_PORT = 0;
@@ -38,7 +39,7 @@ public class ElevatorCode extends SubsystemBase {
     private int targetPreset = 0;
     
     public ElevatorCode(Joystick joystick, int MotorPort) {
-        elevatorMotor = new Spark(MOTOR_PORT);
+        elevatorMotor = new PWMVictorSPX(MOTOR_PORT);
         this.joystick = joystick;
         
         limitSwitch1 = new DigitalInput(LIMIT_SWITCH_1_PORT);

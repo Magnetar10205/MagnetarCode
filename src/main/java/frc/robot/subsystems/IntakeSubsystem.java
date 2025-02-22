@@ -1,20 +1,22 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
     // Spark İle Çalışıyor
+    // IntakeBase
 
     private Joystick joystick;
     private int MotorPort;
-    private Spark intakeMotor;
+    private PWMVictorSPX intakeMotor;
     
     public IntakeSubsystem(Joystick joystick,int MotorPort) {
         this.joystick = joystick;
         this.MotorPort = MotorPort;
-        intakeMotor = new Spark(MotorPort);
+        intakeMotor = new PWMVictorSPX(MotorPort);
     }
 
     public void intakeIn() {
