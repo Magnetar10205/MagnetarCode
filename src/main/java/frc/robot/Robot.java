@@ -16,8 +16,8 @@ public class Robot extends TimedRobot {
     private final Joystick joystick = new Joystick(0); // USB port 0
     private final Drivetrain drivetrain = new Drivetrain(0, 0, 1, 2, 3, joystick);
     // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(joystick, 6);
-    private final Coral coralSubsystem = new Coral(joystick, 7,8); // iki motor bağlanacak ve birbirine ters olucak
-    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 5,6);
+    private final Coral coralSubsystem = new Coral(joystick, 5,6); // iki motor bağlanacak ve birbirine ters olucak
+    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 7,8);
     private double startTime;
     private final Alg algSubsystem = new Alg(joystick, 4);
 
