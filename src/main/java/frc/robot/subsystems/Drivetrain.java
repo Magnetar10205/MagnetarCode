@@ -193,12 +193,25 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  // @Override
+  // public void periodic() {
+  //   // This method will be called once per scheduler run
+  //   if (navx != null) {
+  //     SmartDashboard.putNumber("Yaw", navx.getYaw());
+  //     SmartDashboard.putNumber("Target Angle", targetAngle);
+  //   }
+  // }
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     if (navx != null) {
-      SmartDashboard.putNumber("Yaw", navx.getYaw());
-      SmartDashboard.putNumber("Target Angle", targetAngle);
+        SmartDashboard.putNumber("NavX Angle", navx.getAngle());  // Genel açı
+        SmartDashboard.putNumber("Yaw", navx.getYaw());           // Yaw açısı
+        SmartDashboard.putNumber("Pitch", navx.getPitch());       // Pitch açısı
+        SmartDashboard.putNumber("Roll", navx.getRoll());         // Roll açısı
+        SmartDashboard.putNumber("Target Angle", targetAngle);    // Hedef açı
+        SmartDashboard.putNumber("Gyro Correction", KP * (targetAngle - navx.getAngle())); // Düzeltme oranı
     }
-  }
+}
+
 }

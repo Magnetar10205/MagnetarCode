@@ -11,7 +11,6 @@ public class ElevatorCode extends SubsystemBase {
     private final Joystick joystick;
     
     // Motor ve joystick portları
-    private static final int MOTOR_PORT = 5;
     private static final int JOYSTICK_PORT = 0;
     
     // Manuel kontrol butonları
@@ -39,7 +38,7 @@ public class ElevatorCode extends SubsystemBase {
     private int targetPreset = 0;
     
     public ElevatorCode(Joystick joystick, int MotorPort) {
-        elevatorMotor = new PWMVictorSPX(MOTOR_PORT);
+        elevatorMotor = new PWMVictorSPX(MotorPort);
         this.joystick = joystick;
         
         limitSwitch1 = new DigitalInput(LIMIT_SWITCH_1_PORT);

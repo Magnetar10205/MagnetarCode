@@ -10,6 +10,7 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ElevatorCode;
 import frc.robot.subsystems.Alg;
+import edu.wpi.first.cameraserver.CameraServer;
 
 public class Robot extends TimedRobot {
     private final Joystick joystick = new Joystick(0); // USB port 0
@@ -22,6 +23,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {}
+
+    @Override
+    public void robotInit() {
+    CameraServer.startAutomaticCapture();
+    }
+
 
     @Override
     public void autonomousInit() {
