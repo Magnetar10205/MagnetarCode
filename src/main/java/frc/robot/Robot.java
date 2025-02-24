@@ -17,7 +17,7 @@ public class Robot extends TimedRobot {
     private final Drivetrain drivetrain = new Drivetrain(0, 0, 1, 2, 3, joystick);
     // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(joystick, 6);
     private final Coral coralSubsystem = new Coral(joystick, 5,6); // iki motor bağlanacak ve birbirine ters olucak
-    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 7,8);
+    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9);
     private double startTime;
     private final Alg algSubsystem = new Alg(joystick, 4);
 
