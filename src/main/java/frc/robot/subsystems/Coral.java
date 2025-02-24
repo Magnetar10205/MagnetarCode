@@ -13,25 +13,32 @@ public class Coral extends SubsystemBase {
   // Spark ile kontrol edilir. 
 
     private Joystick joystick;
-    private int MotorPort;
-    private PWMVictorSPX intakeMotor;
+    private int MotorPort1;
+    private int MotorPort2;
+    private PWMVictorSPX intakeMotor1;
+    private PWMVictorSPX intakeMotor2;
 
-  public Coral(Joystick joystick, int MotorPort) {
+  public Coral(Joystick joystick, int MotorPort1, int MotorPort2) {
       this.joystick = joystick;
-      this.MotorPort = MotorPort;
-      intakeMotor = new PWMVictorSPX(MotorPort);
+      this.MotorPort1 = MotorPort1;
+      this.MotorPort2 = MotorPort2;
+      intakeMotor1 = new PWMVictorSPX(MotorPort1);
+      intakeMotor2 = new PWMVictorSPX(MotorPort2);
   }
 
     public void intakeIn() {
-      intakeMotor.set(0.6); // İçeri al
+      intakeMotor1.set(0.6); // İçeri al
+      intakeMotor2.set(-0.6); // İçeri al
   }
 
   public void intakeOut() {
-      intakeMotor.set(-0.6); // Dışarı at
+      intakeMotor1.set(-0.6); // Dışarı at
+      intakeMotor2.set(0.6); // Dışarı at
   }
 
   public void stopMotor() {
-      intakeMotor.set(0); // Motoru durdur
+      intakeMotor1.set(0); // Motoru durdur
+      intakeMotor2.set(0); // Motoru durdur
   }
 
   @Override
