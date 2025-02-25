@@ -68,13 +68,13 @@ public class Coral extends SubsystemBase {
     private DigitalInput photoSwitch;
     private boolean isRunning = false; // Yeni boolean değişken
 
-    public Coral(Joystick joystick, int MotorPort1, int MotorPort2, int photoSwitchPort) {
+    public Coral(Joystick joystick, int MotorPort1, int MotorPort2) {
         this.joystick = joystick;
         this.MotorPort1 = MotorPort1;
         this.MotorPort2 = MotorPort2;
         intakeMotor1 = new PWMVictorSPX(MotorPort1);
         intakeMotor2 = new PWMVictorSPX(MotorPort2);
-        photoSwitch = new DigitalInput(photoSwitchPort);
+        photoSwitch = new DigitalInput(3);
     }
 
     public void intakeIn() {
@@ -93,20 +93,44 @@ public class Coral extends SubsystemBase {
     }
 
     public void adjustPositionWithPhotoSwitch() {
+        boolean calisti = false;
+
         if (isRunning) return; // Eğer fonksiyon zaten çalışıyorsa, tekrar çalıştırma
         isRunning = true; // Fonksiyon başladığında işaretle
+
+        while (!photoSwitch.get()){
+            intakeOut();
+        }
+        stopMotor();
+        Timer.delay(0.25);
+        // calisti = true;
+
+        // Timer timer = new Timer();
+        // timer.start();
+        // double maxReverseTime = 5.0; 
+        // while (photoSwitch.get() && timer.get() < maxReverseTime ){
+            // intakeIn();
+            
+        // }
+        // stopMotor();
 
         while (photoSwitch.get()){
             intakeIn();
         }
         stopMotor();
-        // Timer timer = new Timer();
-        // timer.start();
-        // double maxReverseTime = 5.0; 
-        // while (!photoSwitch.get() && timer.get() < maxReverseTime ){
-        //     intakeOut();
-        // }
-        // stopMotor();
+        Timer.delay(0.25);
+
+        Timer timer = new Timer();
+        timer.start();
+        double maxReverseTime = 0.1; 
+
+        while (timer.get()<maxReverseTime){
+            intakeOut();
+        }
+        stopMotor();
+        timer.delay(0.25);
+        
+        // calisti = false;
 
         // if (photoSwitch.get()) {
         //     // Motorları ileri al
@@ -138,7 +162,7 @@ public class Coral extends SubsystemBase {
             adjustPositionWithPhotoSwitch();
         }
 
-        boolean sensor_boolen = photoSwitch.get();
+        boolean sensor_boolen = !photoSwitch.get();
 
         SmartDashboard.putBoolean("Sensör Coral", sensor_boolen );
     }
