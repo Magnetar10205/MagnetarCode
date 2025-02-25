@@ -55,6 +55,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -95,25 +96,37 @@ public class Coral extends SubsystemBase {
         if (isRunning) return; // Eğer fonksiyon zaten çalışıyorsa, tekrar çalıştırma
         isRunning = true; // Fonksiyon başladığında işaretle
 
-        if (photoSwitch.get()) {
-            // Motorları ileri al
+        while (photoSwitch.get()){
             intakeIn();
-            Timer.delay(1.0);
-            stopMotor();
-
-            // Geri alma işlemi (5 saniyeye kadar)
-            Timer timer = new Timer();
-            timer.start();
-            double maxReverseTime = 5.0; 
-
-            while (!photoSwitch.get() && timer.get() < maxReverseTime) {
-                intakeOut();
-            }
-            stopMotor();
-
-            timer.stop();
-            timer.reset();
         }
+        stopMotor();
+        // Timer timer = new Timer();
+        // timer.start();
+        // double maxReverseTime = 5.0; 
+        // while (!photoSwitch.get() && timer.get() < maxReverseTime ){
+        //     intakeOut();
+        // }
+        // stopMotor();
+
+        // if (photoSwitch.get()) {
+        //     // Motorları ileri al
+        //     intakeIn();
+        //     Timer.delay(1.0);
+        //     stopMotor();
+
+        //     // Geri alma işlemi (5 saniyeye kadar)
+        //     // Timer timer = new Timer();
+        //     // timer.start();
+        //     // double maxReverseTime = 5.0; 
+
+        //     while (!photoSwitch.get() && timer.get() < maxReverseTime) {
+        //         intakeOut();
+        //     }
+        //     stopMotor();
+
+        //     timer.stop();
+        //     timer.reset();
+        // }
 
         isRunning = false; // İşlem tamamlandığında sıfırla
     }
@@ -124,5 +137,9 @@ public class Coral extends SubsystemBase {
         if (joystick.getRawButtonPressed(3)) {
             adjustPositionWithPhotoSwitch();
         }
+
+        boolean sensor_boolen = photoSwitch.get();
+
+        SmartDashboard.putBoolean("Sensör Coral", sensor_boolen );
     }
 }
