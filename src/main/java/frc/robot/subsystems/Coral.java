@@ -68,13 +68,13 @@ public class Coral extends SubsystemBase {
     private DigitalInput photoSwitch;
     private boolean isRunning = false; // Yeni boolean değişken
 
-    public Coral(Joystick joystick, int MotorPort1, int MotorPort2) {
+    public Coral(Joystick joystick, int MotorPort1, int MotorPort2,DigitalInput photoSwitch) {
         this.joystick = joystick;
         this.MotorPort1 = MotorPort1;
         this.MotorPort2 = MotorPort2;
         intakeMotor1 = new PWMVictorSPX(MotorPort1);
         intakeMotor2 = new PWMVictorSPX(MotorPort2);
-        photoSwitch = new DigitalInput(3);
+        this.photoSwitch =photoSwitch;
     }
 
     public void intakeIn() {
@@ -86,6 +86,8 @@ public class Coral extends SubsystemBase {
         intakeMotor1.set(-0.4);
         intakeMotor2.set(-0.4);
     }
+
+
 
     public void stopMotor() {
         intakeMotor1.set(0);
@@ -163,7 +165,7 @@ public class Coral extends SubsystemBase {
         }
 
         boolean sensor_boolen = !photoSwitch.get();
-
+// photo = true !photo = false (boştayken)
         SmartDashboard.putBoolean("Sensör Coral", sensor_boolen );
     }
 }

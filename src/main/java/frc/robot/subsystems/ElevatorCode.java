@@ -425,7 +425,7 @@ public class ElevatorCode extends SubsystemBase {
     private final DigitalInput yukariSwitch;
     private final DigitalInput asagiSwitch;
 
-    public ElevatorCode(Joystick joystick, int MotorPort1, int MotorPort2) {
+    public ElevatorCode(Joystick joystick, int MotorPort1, int MotorPort2,DigitalInput asagiSwitch) {
         elevatorMotor1 = new PWMVictorSPX(MotorPort1);
         elevatorMotor2 = new PWMVictorSPX(MotorPort2);
         this.joystick = joystick;
@@ -433,7 +433,17 @@ public class ElevatorCode extends SubsystemBase {
 
         ortaSwitch = new DigitalInput(9); // 9. DIO pini için DigitalInput nesnesi
         yukariSwitch = new DigitalInput(7);
-        asagiSwitch = new DigitalInput(8);
+        this.asagiSwitch = asagiSwitch;
+
+    }
+
+    public void elevatorAsagi (){
+        while (!asagiSwitch.get()){
+            elevatorMotor1.set(0.7);
+            elevatorMotor2.set(0.7);
+            yukari_cikildi = false;
+        }
+        stopMotors();
 
     }
 

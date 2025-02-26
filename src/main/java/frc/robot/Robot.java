@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Coral;
@@ -16,8 +17,10 @@ public class Robot extends TimedRobot {
     private final Joystick joystick = new Joystick(0); // USB port 0
     private final Drivetrain drivetrain = new Drivetrain(0, 2, 3, 0, 1, joystick);
     // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(joystick, 6);
-    private final Coral coralSubsystem = new Coral(joystick, 5,6); // iki motor bağlanacak ve birbirine ters olucak PhotoSwitch 6. DIO portuna girildi
-    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9);
+    private final DigitalInput photoSwitch = new DigitalInput(3);
+    private final Coral coralSubsystem = new Coral(joystick, 5,6, photoSwitch); // iki motor bağlanacak ve birbirine ters olucak PhotoSwitch 6. DIO portuna girildi
+    private final DigitalInput asagiSwitch = new DigitalInput(8);
+    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9,asagiSwitch);
     private double startTime;
     private final Alg algSubsystem = new Alg(joystick, 4);
 
@@ -64,16 +67,62 @@ public class Robot extends TimedRobot {
         boolean button3 = joystick.getRawButton(9);
         boolean button4 = joystick.getRawButton(10);
 
+        boolean coralintakeOutYapti = false;
+
 
         if (button1 && button2) {
-            coralSubsystem.stopMotor();
+            // coralSubsystem.stopMotor();
         } else if (button1) {
             coralSubsystem.intakeIn();
+            // coralSubsystem.stopMotor();
+
         } else if (button2) {
             coralSubsystem.intakeOut();
-        } else {
+            // coralSubsystem.stopMotor();
+            if (photoSwitch.get()){
+                Timer.delay(1);
+                coralSubsystem.stopMotor();
+                elevatorSubsystem.elevatorAsagi();
+            }
+        }else{
             coralSubsystem.stopMotor();
         }
+
+
+        // ! deneme alanı
+
+        // if (button1 && button2) {
+        //     // coralSubsystem.stopMotor();
+        // } else if (button1) {
+        //     coralSubsystem.intakeIn();
+        //     // coralintakeOutYapti = false;
+        //     // coralSubsystem.stopMotor();
+
+        // } else if (button2) {
+        //     coralSubsystem.intakeOut();
+        //     coralintakeOutYapti = true;
+        //     Timer.delay(0.5);
+        //     // coralSubsystem.stopMotor();
+
+        // }else{
+        //     coralSubsystem.stopMotor();
+
+        // }
+
+        // if (coralintakeOutYapti){
+        //     coralSubsystem.stopMotor();
+        //     Timer.delay(1);
+        //     elevatorSubsystem.elevatorAsagi();
+        //     Timer.delay(1);
+        //     coralintakeOutYapti = false;
+        // }
+
+
+
+
+
+
+
 
         if (button3 && button4) {
             algSubsystem.stopMotor();
