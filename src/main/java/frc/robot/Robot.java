@@ -64,23 +64,22 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         drivetrain.DriveArcade();
         
+        // Coral Butonları
         boolean button1 = joystick.getRawButton(7);
         boolean button2 = joystick.getRawButton(8);
+
+        // Alg Butonları
         boolean button3 = joystick.getRawButton(9);
         boolean button4 = joystick.getRawButton(10);
 
-        boolean coralintakeOutYapti = false;
 
 
-        if (button1 && button2) {
-            // coralSubsystem.stopMotor();
-        } else if (button1) {
+        // ! Coral Subsystem Kontrolü
+
+        if (button1) {
             coralSubsystem.intakeIn();
-            // coralSubsystem.stopMotor();
-
         } else if (button2) {
             coralSubsystem.intakeOut();
-            // coralSubsystem.stopMotor();
             if (photoSwitch.get()){
                 Timer.delay(1);
                 coralSubsystem.stopMotor();
@@ -90,42 +89,7 @@ public class Robot extends TimedRobot {
             coralSubsystem.stopMotor();
         }
 
-
-        // ! deneme alanı
-
-        // if (button1 && button2) {
-        //     // coralSubsystem.stopMotor();
-        // } else if (button1) {
-        //     coralSubsystem.intakeIn();
-        //     // coralintakeOutYapti = false;
-        //     // coralSubsystem.stopMotor();
-
-        // } else if (button2) {
-        //     coralSubsystem.intakeOut();
-        //     coralintakeOutYapti = true;
-        //     Timer.delay(0.5);
-        //     // coralSubsystem.stopMotor();
-
-        // }else{
-        //     coralSubsystem.stopMotor();
-
-        // }
-
-        // if (coralintakeOutYapti){
-        //     coralSubsystem.stopMotor();
-        //     Timer.delay(1);
-        //     elevatorSubsystem.elevatorAsagi();
-        //     Timer.delay(1);
-        //     coralintakeOutYapti = false;
-        // }
-
-
-
-
-
-
-
-
+        // ! Alg Subsystem Kontrolü
         if (button3 && button4) {
             algSubsystem.stopMotor();
         } else if (button3) {
@@ -141,7 +105,7 @@ public class Robot extends TimedRobot {
         coralSubsystem.periodic();
 
         
-        
+        // ! ShuffleBoard Verileri Yazdırma
         for (int i = 1; i <= 12; i++) { // 12 tuş sınırı varsayımı
             if (joystick.getRawButtonPressed(i)) {
                 SmartDashboard.putNumber("Basılan Tuş", i);
