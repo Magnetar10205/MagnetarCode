@@ -554,12 +554,14 @@ public class ElevatorCode extends SubsystemBase {
                 elevatorMotor2.set(-0.7);
                 yukari_cikildi = true;
             }
+            stopMotors();
         }else if (joystick.getRawButtonPressed(PRESET_1_BUTTON)){
             while (!asagiSwitch.get()){
                 elevatorMotor1.set(0.7);
                 elevatorMotor2.set(0.7);
                 yukari_cikildi = false;
             }
+            stopMotors();
         }
 
         // if (joystick.getRawButton(UP_BUTTON) ) {
@@ -580,10 +582,30 @@ public class ElevatorCode extends SubsystemBase {
         if (joystick.getRawButton(UP_BUTTON) && !yukariSwitch.get()) {
             elevatorMotor1.set(-0.7); // Yukarı
             elevatorMotor2.set(-0.7);
+            if (ortaSwitch.get()){
+                yukari_cikildi = true;
+            }else if (yukariSwitch.get()){
+                yukari_cikildi = true;
+                stopMotors();
+            }
         } else if (joystick.getRawButton(DOWN_BUTTON) && !asagiSwitch.get()) {
             elevatorMotor1.set(0.7);  // Aşağı
             elevatorMotor2.set(0.7);
-        } else {
+            if (ortaSwitch.get()){
+                yukari_cikildi = false;
+            }else if (asagiSwitch.get()){
+                yukari_cikildi = false;
+                stopMotors();
+            }
+        
+        }else if (yukariSwitch.get()){
+            stopMotors();
+            yukari_cikildi = true;
+        }else if (asagiSwitch.get()){
+            stopMotors();
+            yukari_cikildi = false;
+        }
+         else {
             stopMotors();
         }
 
