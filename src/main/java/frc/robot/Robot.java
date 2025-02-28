@@ -18,9 +18,11 @@ public class Robot extends TimedRobot {
     private final Drivetrain drivetrain = new Drivetrain(0, 2, 3, 0, 1, joystick);
     // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(joystick, 6);
     private final DigitalInput photoSwitch = new DigitalInput(3);
+    private final DigitalInput ortaSwitch = new DigitalInput(9);
+    private final DigitalInput yukariSwitch = new DigitalInput(7);
     private final Coral coralSubsystem = new Coral(joystick, 5,6, photoSwitch); // iki motor bağlanacak ve birbirine ters olucak PhotoSwitch 6. DIO portuna girildi
     private final DigitalInput asagiSwitch = new DigitalInput(8);
-    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9,asagiSwitch);
+    private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9,asagiSwitch, ortaSwitch, yukariSwitch);
     private double startTime;
     private final Alg algSubsystem = new Alg(joystick, 4);
 
