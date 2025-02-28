@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ElevatorCode;
@@ -16,7 +14,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class Robot extends TimedRobot {
     private final Joystick joystick = new Joystick(0); // USB port 0
     private final Drivetrain drivetrain = new Drivetrain(0, 2, 3, 0, 1, joystick);
-    // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(joystick, 6);
     private final DigitalInput photoSwitch = new DigitalInput(3);
     private final DigitalInput ortaSwitch = new DigitalInput(9);
     private final DigitalInput yukariSwitch = new DigitalInput(7);
