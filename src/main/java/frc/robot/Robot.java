@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
     private boolean autonomousElevatorControl = false;
     private double coralTimer;
     private boolean CoralBos = false;
+    public double coralElapsedTime;
 
     @Override
     public void robotPeriodic() {}
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         double elapsedTime = Timer.getFPGATimestamp() - startTime;
+
     
         // if (elapsedTime < 3.0) {
         //     drivetrain.NormalArcadeDrive(0, 0.6);
@@ -70,10 +72,11 @@ public class Robot extends TimedRobot {
         // elevatorSubsystem.elevatorYukari();
 
 
+        
         if (elapsedTime < 2.7){
             drivetrain.NormalArcadeDrive(-0.07,0.6);
 
-        }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){
+        }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){ 
             drivetrain.stopMotors();
             Timer.delay(0.5);
             elevatorSubsystem.elevatorYukari();
@@ -81,19 +84,24 @@ public class Robot extends TimedRobot {
                 autonomousElevatorControl = true;
                 coralTimer = Timer.getFPGATimestamp();
             }
+            System.out.println("Asansör Çalışıyor");
         
-        }else if (true ){
-            Timer.delay(0.5);
-            coralSubsystem.intakeOut();
-            if (photoSwitch.get() == false){
-                coralSubsystem.stopMotor();
-            }else if (photoSwitch.get() == true){
+        }else if (autonomousElevatorControl){
+            System.out.println("Corala girdi");
+            if (true){
+                System.out.println("Coral atılacak");
                 coralSubsystem.intakeOut();
+            }else{
+                // autonomousElevatorControl = false
+                coralSubsystem.stopMotor();
             }
 
-            
         }
-        // coralSubsystem.stopMotor();
+
+        // if (coralElapsedTime < 3){
+        //     coralSubsystem.intakeOut();
+        // }stop
+
 
 
 

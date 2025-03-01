@@ -83,7 +83,7 @@ public class Coral extends SubsystemBase {
 
         boolean sensor_boolen = !photoSwitch.get();
         // photo = true !photo = false (boştayken)
-        SmartDashboard.putBoolean("Sensör Coral", sensor_boolen );
+        SmartDashboard.putBoolean("Sensör Coral 3", sensor_boolen );
     }
 }
 
