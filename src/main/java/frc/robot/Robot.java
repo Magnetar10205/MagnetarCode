@@ -29,7 +29,8 @@ public class Robot extends TimedRobot {
     private boolean autonomousElevatorControl = false;
     private double coralTimer;
     private boolean CoralBos = false;
-    public double coralElapsedTime;
+    private double coralElapsedTime;
+    private boolean elevatorAsagida = false;
 
     @Override
     public void robotPeriodic() {}
@@ -81,22 +82,37 @@ public class Robot extends TimedRobot {
             Timer.delay(0.5);
             elevatorSubsystem.elevatorYukari();
             if (yukariSwitch.get()){
+                System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
                 autonomousElevatorControl = true;
                 coralTimer = Timer.getFPGATimestamp();
             }
             System.out.println("Asansör Çalışıyor");
-        
-        }else if (autonomousElevatorControl){
-            System.out.println("Corala girdi");
-            if (true){
-                System.out.println("Coral atılacak");
-                coralSubsystem.intakeOut();
-            }else{
-                // autonomousElevatorControl = false
-                coralSubsystem.stopMotor();
-            }
 
         }
+        if ( elapsedTime > 8 && elapsedTime <11){
+            autonomousElevatorControl = true;
+            coralSubsystem.intakeOut();
+        }
+        if ( !elevatorAsagida &&elapsedTime >= 11){
+            coralSubsystem.stopMotor();
+            elevatorSubsystem.elevatorAsagi();
+            if (asagiSwitch.get()){
+                System.out.println("Asansör bitti Asagı Switch Çalışıyor");
+                elevatorAsagida = true;
+            }
+        }
+        
+        // }else if (autonomousElevatorControl){
+        //     System.out.println("Corala girdi");
+        //     if (true){
+        //         System.out.println("Coral atılacak");
+        //         coralSubsystem.intakeOut();
+        //     }else{
+        //         // autonomousElevatorControl = false
+        //         coralSubsystem.stopMotor();
+        //     }
+
+        // }
 
         // if (coralElapsedTime < 3){
         //     coralSubsystem.intakeOut();
