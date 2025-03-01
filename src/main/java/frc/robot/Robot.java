@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
     private final Alg algSubsystem = new Alg(joystick, 4);
     private boolean autonomousElevatorControl = false;
     private double coralTimer;
+    private boolean CoralBos = false;
 
     @Override
     public void robotPeriodic() {}
@@ -70,9 +71,10 @@ public class Robot extends TimedRobot {
 
 
         if (elapsedTime < 2.7){
-            drivetrain.NormalArcadeDrive(0,0.6);
-            drivetrain.stopMotors();
+            drivetrain.NormalArcadeDrive(-0.07,0.6);
+
         }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){
+            drivetrain.stopMotors();
             Timer.delay(0.5);
             elevatorSubsystem.elevatorYukari();
             if (yukariSwitch.get()){
@@ -80,14 +82,24 @@ public class Robot extends TimedRobot {
                 coralTimer = Timer.getFPGATimestamp();
             }
         
-        }else if (autonomousElevatorControl && Timer.getFPGATimestamp()-coralTimer <= 4 ){
+        }else if (true ){
             Timer.delay(0.5);
             coralSubsystem.intakeOut();
+            if (photoSwitch.get() == false){
+                coralSubsystem.stopMotor();
+            }else if (photoSwitch.get() == true){
+                coralSubsystem.intakeOut();
+            }
+
             
         }
-        coralSubsystem.stopMotor();
-        Timer.delay(0.25);
-        elevatorSubsystem.elevatorAsagi();
+        // coralSubsystem.stopMotor();
+
+
+
+
+        // Timer.delay(0.25);
+        // elevatorSubsystem.elevatorAsagi();
 
         // startTime = Timer.getFPGATimestamp();
         // drivetrain.SureliDrive(elapsedTime, 0.9, 0.5, 0); // Sağa dön
