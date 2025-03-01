@@ -15,6 +15,7 @@ public class Coral extends SubsystemBase {
     private DigitalInput photoSwitch;
     private boolean isRunning = false; // Yeni boolean değişken
 
+
     public Coral(Joystick joystick, int MotorPort1, int MotorPort2,DigitalInput photoSwitch) {
         this.joystick = joystick;
         intakeMotor1 = new PWMVictorSPX(MotorPort1);
@@ -23,13 +24,13 @@ public class Coral extends SubsystemBase {
     }
 
     public void intakeIn() {
-        intakeMotor1.set(0.4);
-        intakeMotor2.set(0.4);
+        intakeMotor1.set(0.3);
+        intakeMotor2.set(0.3);
     }
 
     public void intakeOut() {
-        intakeMotor1.set(-0.4);
-        intakeMotor2.set(-0.4);
+        intakeMotor1.set(-0.3);
+        intakeMotor2.set(-0.3);
     }
 
     public void stopMotor() {
@@ -38,36 +39,40 @@ public class Coral extends SubsystemBase {
     }
 
     public void adjustPositionWithPhotoSwitch() {
-        boolean calisti = false;
-
-        if (isRunning) return; // Eğer fonksiyon zaten çalışıyorsa, tekrar çalıştırma
         isRunning = true; // Fonksiyon başladığında işaretle
-
-        while (!photoSwitch.get()){
+    
+        Timer timer = new Timer();
+    
+        // 1. Aşama: Nesne algılanana kadar dışarı çıkar
+        timer.reset();
+        timer.start();
+        while (!photoSwitch.get() && timer.get() < 5.0) {
             intakeOut();
         }
         stopMotor();
         Timer.delay(0.25);
-
-        while (photoSwitch.get()){
+    
+        // 2. Aşama: Nesne algılandığında içeri al
+        timer.reset();
+        while (photoSwitch.get() && timer.get() < 5.0) {
             intakeIn();
         }
         stopMotor();
         Timer.delay(0.25);
-
-        Timer timer = new Timer();
+    
+        // 3. Aşama: Kısa bir geri hareket yap
+        timer.reset();
         timer.start();
-        double maxReverseTime = 0.1; 
-
-        while (timer.get()<maxReverseTime){
+        double maxReverseTime = 0.1;
+        while (timer.get() < maxReverseTime) {
             intakeOut();
         }
         stopMotor();
-        timer.delay(0.25);
-        
-
-        isRunning = false; // İşlem tamamlandığında sıfırla
+        Timer.delay(0.25);
+    
+        isRunning = false;
     }
+    
 
     @Override
     public void periodic() {
@@ -81,3 +86,5 @@ public class Coral extends SubsystemBase {
         SmartDashboard.putBoolean("Sensör Coral", sensor_boolen );
     }
 }
+
+

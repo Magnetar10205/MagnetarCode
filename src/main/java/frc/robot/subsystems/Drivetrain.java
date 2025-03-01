@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
@@ -61,6 +62,21 @@ public class Drivetrain extends SubsystemBase {
 
   public void NormalArcadeDrive(double x,double y){
     drive.arcadeDrive(x, y);
+  }
+
+  public void stopMotors(){
+    drive.arcadeDrive(0, 0);
+  }
+  
+  public void SureliDrive(double elapsedTime, double time, double x, double y){
+    if (elapsedTime < time){
+      drive.arcadeDrive(x, y);
+    }else{
+      drive.arcadeDrive(0, 0);
+    }
+
+
+
   }
 
 

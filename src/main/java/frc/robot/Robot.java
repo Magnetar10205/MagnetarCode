@@ -3,12 +3,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.SerialPort.StopBits;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ElevatorCode;
 import frc.robot.subsystems.Alg;
+
+import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
+
 import edu.wpi.first.cameraserver.CameraServer;
 
 public class Robot extends TimedRobot {
@@ -22,6 +26,8 @@ public class Robot extends TimedRobot {
     private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9,asagiSwitch, ortaSwitch, yukariSwitch);
     private double startTime;
     private final Alg algSubsystem = new Alg(joystick, 4);
+    private boolean autonomousElevatorControl = false;
+    private double coralTimer;
 
     @Override
     public void robotPeriodic() {}
@@ -35,21 +41,58 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         startTime = Timer.getFPGATimestamp();
+        
     }
 
     @Override
     public void autonomousPeriodic() {
         double elapsedTime = Timer.getFPGATimestamp() - startTime;
     
-        if (elapsedTime < 3.0) {
-            drivetrain.NormalArcadeDrive(0, 0.6);
-        } else if (elapsedTime < 4.0) {
-            drivetrain.NormalArcadeDrive(0.5, 0);
-        } else if (elapsedTime < 5.0) {
-            drivetrain.NormalArcadeDrive(-0.5, 0);
-        } else {
-            drivetrain.NormalArcadeDrive(0, 0);
+        // if (elapsedTime < 3.0) {
+        //     drivetrain.NormalArcadeDrive(0, 0.6);
+        // } else if (elapsedTime < 4.0) {
+        //     drivetrain.NormalArcadeDrive(0.5, 0);
+        // } else if (elapsedTime < 5.0) {
+        //     drivetrain.NormalArcadeDrive(-0.5, 0);
+        // } else {
+        //     drivetrain.NormalArcadeDrive(0, 0);
+        // }
+
+        // ? ileri -->  drivetrain.NormalArcadeDrive(0, 0.6); 
+        // ? Sağa dönüş --> drivetrain.NormalArcadeDrive(0.5, 0);
+
+
+        // ? double startTime, double time, double x, double y
+        // drivetrain.SureliDrive(elapsedTime, 2.7, 0,0.6 ); // İleri
+ 
+        // Timer.delay(0.5);
+        // elevatorSubsystem.elevatorYukari();
+
+
+        if (elapsedTime < 2.7){
+            drivetrain.NormalArcadeDrive(0,0.6);
+            drivetrain.stopMotors();
+        }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){
+            Timer.delay(0.5);
+            elevatorSubsystem.elevatorYukari();
+            if (yukariSwitch.get()){
+                autonomousElevatorControl = true;
+                coralTimer = Timer.getFPGATimestamp();
+            }
+        
+        }else if (autonomousElevatorControl && Timer.getFPGATimestamp()-coralTimer <= 4 ){
+            Timer.delay(0.5);
+            coralSubsystem.intakeOut();
+            
         }
+        coralSubsystem.stopMotor();
+        Timer.delay(0.25);
+        elevatorSubsystem.elevatorAsagi();
+
+        // startTime = Timer.getFPGATimestamp();
+        // drivetrain.SureliDrive(elapsedTime, 0.9, 0.5, 0); // Sağa dön
+        System.out.println(elapsedTime);
+        
     }
 
     @Override

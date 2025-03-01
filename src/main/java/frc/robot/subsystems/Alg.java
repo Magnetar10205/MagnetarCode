@@ -23,12 +23,16 @@ public class Alg extends SubsystemBase {
   }
 
   public void intakeIn() {
-    intakeMotor.set(0.6); // İçeri al
+    // intakeMotor.set(0.6); // İçeri al
+    intakeMotor.set(1); // İçeri al
+
 }
 
   public void intakeOut() {
-      intakeMotor.set(-0.6); // Dışarı at
-  }
+      // intakeMotor.set(-0.6); // Dışarı at
+      intakeMotor.set(-1); // Dışarı at
+
+    }
 
   public void stopMotor() {
       intakeMotor.set(0); // Motoru durdur
