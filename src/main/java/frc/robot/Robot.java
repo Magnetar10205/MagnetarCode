@@ -75,11 +75,11 @@ public class Robot extends TimedRobot {
         // elevatorSubsystem.elevatorYukari();
 
 
-        
-        if (elapsedTime < 2.7){ // Resifin yanına yaklaşma
-            drivetrain.NormalArcadeDrive(-0.07,0.6);
+        // ! Otonom 1 (Robot Ortada)
+        if (elapsedTime < 3){ // Resifin yanına yaklaşma
+            drivetrain.NormalArcadeDrive(-0.13,0.6);
 
-        }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
+        }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
             drivetrain.stopMotors();
             Timer.delay(0.5);
             elevatorSubsystem.elevatorYukari();
