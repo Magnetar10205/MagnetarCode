@@ -76,8 +76,38 @@ public class Robot extends TimedRobot {
 
 
         // ! Otonom 1 (Robot Ortada)
-        if (elapsedTime < 3){ // Resifin yanına yaklaşma
-            drivetrain.NormalArcadeDrive(-0.13,0.6);
+        // if (elapsedTime < 3){ // Resifin yanına yaklaşma
+        //     drivetrain.NormalArcadeDrive(-0.13,0.6);
+
+        // }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
+        //     drivetrain.stopMotors();
+        //     Timer.delay(0.5);
+        //     elevatorSubsystem.elevatorYukari();
+        //     if (yukariSwitch.get()){
+        //         System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
+        //         autonomousElevatorControl = true;
+        //         coralTimer = Timer.getFPGATimestamp();
+        //     }
+        //     System.out.println("Asansör Çalışıyor");
+
+        // }
+        // if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
+        //     autonomousElevatorControl = true;
+        //     coralSubsystem.intakeOut();
+        // }
+        // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+        //     coralSubsystem.stopMotor();
+        //     elevatorSubsystem.elevatorAsagi();
+        // }
+
+
+        // ! Otonom 2 ( Robot yanda)
+
+        // Düz bir şekilde ileri git hafif sola dön sonra tekrar ileri git ve kendini hizaladın
+        // Bu kod yazılacak
+
+        if (elapsedTime < 2.8){ // Resifin yanına yaklaşma
+            drivetrain.NormalArcadeDrive(0,0.65);
 
         }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
             drivetrain.stopMotors();
@@ -93,14 +123,13 @@ public class Robot extends TimedRobot {
         }
         if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
             autonomousElevatorControl = true;
-            coralSubsystem.intakeOut();
+            coralSubsystem.intakeManuel(-0.4, -0.4);;
         }
         if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
             coralSubsystem.stopMotor();
             elevatorSubsystem.elevatorAsagi();
-
         }
-        
+
         System.out.println(elapsedTime);
         
     }

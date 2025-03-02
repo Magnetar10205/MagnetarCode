@@ -33,6 +33,12 @@ public class Coral extends SubsystemBase {
         intakeMotor2.set(-0.3);
     }
 
+    public void intakeManuel(double speed1, double speed2){
+        intakeMotor1.set(speed1);
+        intakeMotor2.set(speed2);
+    }
+
+
     public void stopMotor() {
         intakeMotor1.set(0);
         intakeMotor2.set(0);
