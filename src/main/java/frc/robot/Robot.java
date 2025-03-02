@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         startTime = Timer.getFPGATimestamp();
+        elevatorAsagida = false;
+        autonomousElevatorControl = false;
         
     }
 
@@ -74,10 +76,10 @@ public class Robot extends TimedRobot {
 
 
         
-        if (elapsedTime < 2.7){
+        if (elapsedTime < 2.7){ // Resifin yanına yaklaşma
             drivetrain.NormalArcadeDrive(-0.07,0.6);
 
-        }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){ 
+        }else if (!autonomousElevatorControl && elapsedTime > 2.7 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
             drivetrain.stopMotors();
             Timer.delay(0.5);
             elevatorSubsystem.elevatorYukari();
@@ -89,44 +91,16 @@ public class Robot extends TimedRobot {
             System.out.println("Asansör Çalışıyor");
 
         }
-        if ( elapsedTime > 8 && elapsedTime <11){
+        if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
             autonomousElevatorControl = true;
             coralSubsystem.intakeOut();
         }
-        if ( !elevatorAsagida &&elapsedTime >= 11){
+        if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
             coralSubsystem.stopMotor();
             elevatorSubsystem.elevatorAsagi();
-            if (asagiSwitch.get()){
-                System.out.println("Asansör bitti Asagı Switch Çalışıyor");
-                elevatorAsagida = true;
-            }
+
         }
         
-        // }else if (autonomousElevatorControl){
-        //     System.out.println("Corala girdi");
-        //     if (true){
-        //         System.out.println("Coral atılacak");
-        //         coralSubsystem.intakeOut();
-        //     }else{
-        //         // autonomousElevatorControl = false
-        //         coralSubsystem.stopMotor();
-        //     }
-
-        // }
-
-        // if (coralElapsedTime < 3){
-        //     coralSubsystem.intakeOut();
-        // }stop
-
-
-
-
-
-        // Timer.delay(0.25);
-        // elevatorSubsystem.elevatorAsagi();
-
-        // startTime = Timer.getFPGATimestamp();
-        // drivetrain.SureliDrive(elapsedTime, 0.9, 0.5, 0); // Sağa dön
         System.out.println(elapsedTime);
         
     }
