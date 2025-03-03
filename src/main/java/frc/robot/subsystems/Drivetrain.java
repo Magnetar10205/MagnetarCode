@@ -5,12 +5,9 @@
 // import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 // import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 // import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
-// import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// // import com.kauailabs.navx.frc.AHRS;
-// import com.studica.frc.AHRS;
 
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import edu.wpi.first.wpilibj.SerialPort;
+// import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 
 // public class Drivetrain extends SubsystemBase {
 //   public Joystick gamepad;
@@ -21,7 +18,6 @@
 //   public MotorControllerGroup leftMotors;
 //   public MotorControllerGroup rightMotors;
 //   public DifferentialDrive drive;
-//   public AHRS navx; // navX nesnesi tanımlandı
 
 //   public Drivetrain(int gamepadPort, int leftFrontMotorPort, int leftBackMotorPort, int rightFrontMotorPort, int rightBackMotorPort, Joystick joystick) {
 //     gamepad = joystick;
@@ -35,53 +31,63 @@
 
 //     drive = new DifferentialDrive(leftMotors, rightMotors);
 
-//     navx = new AHRS(AHRS.NavXComType.kUSB1);
 //   }
 
 //   public void DriveArcade() {
 //     double rawForward = gamepad.getRawAxis(0); // Sağ joystick Y ekseni (ileri-geri)
 //     double rawTurn = -gamepad.getRawAxis(1);  // Sol joystick X ekseni (sağa-sola dönüş)
 
-//     double deadzone = 0.1; // Ölü bölge tanımlaması
-//     if (Math.abs(rawForward) < deadzone) rawForward = 0;
-//     if (Math.abs(rawTurn) < deadzone) rawTurn = 0;
+//     // Ölü bölge tanımlaması (örneğin 0.1)
+//     double deadzone = 0.1;
 
+//     if (Math.abs(rawForward) < deadzone) {
+//         rawForward = 0;
+//     }
+//     if (Math.abs(rawTurn) < deadzone) {
+//         rawTurn = 0;
+//     }
+
+//     // Hassasiyeti artırmak için x^2 kullanımı
 //     double forward = Math.signum(rawForward) * Math.pow(rawForward, 2);
 //     double turn = Math.signum(rawTurn) * Math.pow(rawTurn, 2);
 
-//     drive.arcadeDrive(forward, turn);
-//   }
+//     // Eğer joystick hareketsizse motorları durdur
+//     if (forward == 0 && turn == 0) {
+//         drive.arcadeDrive(0, 0);
+//     } else {
+//         drive.arcadeDrive(forward, turn);
+//     }
+// }
 
-//   public void NormalArcadeDrive(double x, double y) {
+
+//   public void NormalArcadeDrive(double x,double y){
 //     drive.arcadeDrive(x, y);
 //   }
 
-//   public void stopMotors() {
+//   public void stopMotors(){
 //     drive.arcadeDrive(0, 0);
 //   }
+  
+//   public void SureliDrive(double elapsedTime, double time, double x, double y){
+//     if (elapsedTime < time){
+//       drive.arcadeDrive(x, y);
+//     }else{
+//       drive.arcadeDrive(0, 0);
+//     }
 
-//   // navX'ten gelen verileri Shuffleboard'a yazdırma
-//   public void updateNavXData() {
-//     SmartDashboard.putNumber("NavX Yaw", navx.getYaw()); // Dönüş açısı
-//     SmartDashboard.putNumber("NavX Pitch", navx.getPitch()); // Öne-arkaya eğim
-//     SmartDashboard.putNumber("NavX Roll", navx.getRoll()); // Yana eğim
+
+
 //   }
 
-//   // navX kullanarak sapmaları düzelten sürüş fonksiyonu
-//   public void CorrectedDrive(double targetAngle, double speed) {
-//     double currentYaw = navx.getYaw(); // Mevcut yön açısını al
-//     double error = targetAngle - currentYaw; // Hedef açı ile mevcut açı farkı
-//     double correction = error * 0.05; // Hata düzeltme katsayısı (PID gibi davranır)
-//     correction = Math.max(-0.5, Math.min(0.5, correction)); // Maksimum düzeltme sınırı
-//     drive.arcadeDrive(speed, correction); // Düzeltmeli sürüş
-//   }
 
 //   @Override
 //   public void periodic() {
-//     updateNavXData(); // Her döngüde navX verilerini güncelle
+//     // This method will be called once per scheduler run
 //   }
-// }
 
+
+
+// }
 
 
 package frc.robot.subsystems;
