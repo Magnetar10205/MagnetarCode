@@ -108,7 +108,9 @@ public class Robot extends TimedRobot {
 
         if (elapsedTime < 2.8){ // Resifin yanına yaklaşma
             drivetrain.NormalArcadeDrive(0,0.65);
-
+        
+        }else if (elapsedTime <= 2.8 && elapsedTime <=3.3){
+            drivetrain.NormalArcadeDrive(-0.5,0);
         }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
             drivetrain.stopMotors();
             Timer.delay(0.5);
