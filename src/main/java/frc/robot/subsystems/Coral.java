@@ -24,13 +24,13 @@ public class Coral extends SubsystemBase {
     }
 
     public void intakeIn() {
-        intakeMotor1.set(0.3);
-        intakeMotor2.set(0.3);
+        intakeMotor1.set(0.4);
+        intakeMotor2.set(0.4);
     }
 
     public void intakeOut() {
-        intakeMotor1.set(-0.3);
-        intakeMotor2.set(-0.3);
+        intakeMotor1.set(-0.4);
+        intakeMotor2.set(-0.4);
     }
 
     public void intakeManuel(double speed1, double speed2){

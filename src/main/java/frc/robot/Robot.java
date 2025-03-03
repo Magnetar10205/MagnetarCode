@@ -19,7 +19,7 @@ public class Robot extends TimedRobot {
     private final Joystick joystick = new Joystick(0); // USB port 0
     private final Drivetrain drivetrain = new Drivetrain(0, 2, 3, 0, 1, joystick);
     private final DigitalInput photoSwitch = new DigitalInput(3);
-    private final DigitalInput ortaSwitch = new DigitalInput(9);
+    private final DigitalInput ortaSwitch = new DigitalInput(5);
     private final DigitalInput yukariSwitch = new DigitalInput(7);
     private final Coral coralSubsystem = new Coral(joystick, 5,6, photoSwitch); // iki motor bağlanacak ve birbirine ters olucak PhotoSwitch 6. DIO portuna girildi
     private final DigitalInput asagiSwitch = new DigitalInput(8);
