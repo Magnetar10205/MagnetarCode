@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Alg extends SubsystemBase {
@@ -15,11 +17,14 @@ public class Alg extends SubsystemBase {
   private Joystick joystick;
   private int MotorPort;
   private PWMVictorSPX intakeMotor;
+  private DigitalInput AlgPhotoSwitch;
+  private boolean duvaraYaklasildi = false;
 
-  public Alg(Joystick joystick, int MotorPort) {
+  public Alg(Joystick joystick, int MotorPort,DigitalInput AlgPhotoSwitch ) {
     this.joystick = joystick;
     this.MotorPort = MotorPort;
     intakeMotor = new PWMVictorSPX(MotorPort);
+    this.AlgPhotoSwitch = AlgPhotoSwitch;
   }
 
   public void intakeIn() {
@@ -37,8 +42,27 @@ public class Alg extends SubsystemBase {
   public void stopMotor() {
       intakeMotor.set(0); // Motoru durdur
   }
+
+
+  public void setDuvaraYaklasildi(boolean duvaraYaklasildi) {
+    this.duvaraYaklasildi = duvaraYaklasildi;
+  }
+
+  public void ParkModu(){
+    if (duvaraYaklasildi  && AlgPhotoSwitch.get()){
+      intakeIn();
+    }else {
+      stopMotor();
+    }
+  }
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // ParkModu();
+    SmartDashboard.putBoolean("ALg Photo Sensor", AlgPhotoSwitch.get());
   }
+
+
+
+
 }

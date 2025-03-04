@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMVictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Timer;
+// import alg subsystem
+import frc.robot.subsystems.Alg;
 
 public class Coral extends SubsystemBase {
     private Joystick joystick;
@@ -14,13 +16,15 @@ public class Coral extends SubsystemBase {
     private PWMVictorSPX intakeMotor2;
     private DigitalInput photoSwitch;
     private boolean isRunning = false; // Yeni boolean değişken
+    private Alg algSubsystem;
 
 
-    public Coral(Joystick joystick, int MotorPort1, int MotorPort2,DigitalInput photoSwitch) {
+    public Coral(Joystick joystick, int MotorPort1, int MotorPort2,DigitalInput photoSwitch, Alg algSubsystem) {
         this.joystick = joystick;
         intakeMotor1 = new PWMVictorSPX(MotorPort1);
         intakeMotor2 = new PWMVictorSPX(MotorPort2);
         this.photoSwitch =photoSwitch;
+        this.algSubsystem = algSubsystem;
     }
 
     public void intakeIn() {
@@ -53,7 +57,8 @@ public class Coral extends SubsystemBase {
         timer.reset();
         timer.start();
         while (!photoSwitch.get() && timer.get() < 5.0) {
-            intakeOut();
+            // intakeOut();
+            intakeManuel(-0.3, -0.3);
         }
         stopMotor();
         Timer.delay(0.25);
@@ -61,7 +66,8 @@ public class Coral extends SubsystemBase {
         // 2. Aşama: Nesne algılandığında içeri al
         timer.reset();
         while (photoSwitch.get() && timer.get() < 5.0) {
-            intakeIn();
+            // intakeIn();
+            intakeManuel(0.3, 0.3);
         }
         stopMotor();
         Timer.delay(0.25);
@@ -71,9 +77,11 @@ public class Coral extends SubsystemBase {
         timer.start();
         double maxReverseTime = 0.1;
         while (timer.get() < maxReverseTime) {
-            intakeOut();
+            // intakeOut();
+            intakeManuel(-0.3, -0.3);
         }
         stopMotor();
+        algSubsystem.setDuvaraYaklasildi(false);
         Timer.delay(0.25);
     
         isRunning = false;

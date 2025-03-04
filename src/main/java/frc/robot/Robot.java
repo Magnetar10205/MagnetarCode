@@ -21,16 +21,18 @@ public class Robot extends TimedRobot {
     private final DigitalInput photoSwitch = new DigitalInput(3);
     private final DigitalInput ortaSwitch = new DigitalInput(5);
     private final DigitalInput yukariSwitch = new DigitalInput(7);
-    private final Coral coralSubsystem = new Coral(joystick, 5,6, photoSwitch); // iki motor bağlanacak ve birbirine ters olucak PhotoSwitch 6. DIO portuna girildi
+    private DigitalInput AlgPhotoSwitch = new DigitalInput(0);
+    private final Alg algSubsystem = new Alg(joystick, 4, AlgPhotoSwitch);
+    private final Coral coralSubsystem = new Coral(joystick, 5,6, photoSwitch, algSubsystem); // iki motor bağlanacak ve birbirine ters olucak PhotoSwitch 6. DIO portuna girildi
     private final DigitalInput asagiSwitch = new DigitalInput(8);
     private final ElevatorCode elevatorSubsystem = new ElevatorCode(joystick, 8,9,asagiSwitch, ortaSwitch, yukariSwitch);
     private double startTime;
-    private final Alg algSubsystem = new Alg(joystick, 4);
     private boolean autonomousElevatorControl = false;
     private double coralTimer;
     private boolean CoralBos = false;
     private double coralElapsedTime;
     private boolean elevatorAsagida = false;
+
 
     @Override
     public void robotPeriodic() {}
@@ -76,10 +78,61 @@ public class Robot extends TimedRobot {
 
 
         // ! Otonom 1 (Robot Ortada)
-        // if (elapsedTime < 3){ // Resifin yanına yaklaşma
-        //     drivetrain.NormalArcadeDrive(-0.13,0.6);
+        // if (elapsedTime < 2.9){ // Resifin yanına yaklaşma
+        //     drivetrain.NormalArcadeDrive(0,0.6);
 
         // }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
+        //     drivetrain.stopMotors();
+        //     Timer.delay(0.5);
+        //     // elevatorSubsystem.elevatorYukari();
+        //     // if (yukariSwitch.get()){
+        //     //     System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
+        //     //     autonomousElevatorControl = true;
+        //     //     coralTimer = Timer.getFPGATimestamp();
+        //     // }
+        //     // System.out.println("Asansör Çalışıyor");
+
+        // }
+
+        // ! en altta coral alt ayraç
+        // if ( elapsedTime > 3 && elapsedTime <6){ // Coralı at
+        //     autonomousElevatorControl = true;
+        //     coralSubsystem.intakeOut();
+        // }
+        // if (elapsedTime >= 6){ // Coral Durdur
+        //     coralSubsystem.stopMotor();
+        //     // elevatorSubsystem.elevatorAsagi();
+        // }
+        // ! ayraç
+
+
+        // if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
+        //     autonomousElevatorControl = true;
+        //     coralSubsystem.intakeOut();
+        // }
+        // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+        //     coralSubsystem.stopMotor();
+        //     // elevatorSubsystem.elevatorAsagi();
+        // }
+
+
+
+        // ! Otonom 2 ( Robot yanda)
+
+        // Düz bir şekilde ileri git hafif sola dön sonra tekrar ileri git ve kendini hizaladın
+        // Bu kod yazılacak
+
+        if (elapsedTime < 2.8){ // Resifin yanına yaklaşma
+            drivetrain.NormalArcadeDrive(0,0.65);
+        
+        }else if (elapsedTime >= 2.8 && elapsedTime <=3.55){
+            drivetrain.NormalArcadeDrive(-0.5,0);
+        
+        }else if (elapsedTime >= 3.5 && elapsedTime <= 4.3 ){
+            drivetrain.NormalArcadeDrive(0,0.6);
+
+        }
+        // }else if (!autonomousElevatorControl && elapsedTime > 3.7  && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
         //     drivetrain.stopMotors();
         //     Timer.delay(0.5);
         //     elevatorSubsystem.elevatorYukari();
@@ -91,50 +144,22 @@ public class Robot extends TimedRobot {
         //     System.out.println("Asansör Çalışıyor");
 
         // }
-        // if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
-        //     autonomousElevatorControl = true;
-        //     coralSubsystem.intakeOut();
-        // }
-        // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+
+                // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
         //     coralSubsystem.stopMotor();
-        //     elevatorSubsystem.elevatorAsagi();
+        //     // elevatorSubsystem.elevatorAsagi();
         // }
-
-
-        // ! Otonom 2 ( Robot yanda)
-
-        // Düz bir şekilde ileri git hafif sola dön sonra tekrar ileri git ve kendini hizaladın
-        // Bu kod yazılacak
-
-        if (elapsedTime < 2.8){ // Resifin yanına yaklaşma
-            drivetrain.NormalArcadeDrive(0,0.65);
-        
-        }else if (elapsedTime <= 2.8 && elapsedTime <=3.3){
-            drivetrain.NormalArcadeDrive(-0.5,0);
-        
-        }else if (elapsedTime >= 3.3 && elapsedTime <= 4 ){
-            drivetrain.NormalArcadeDrive(0,0.6);
-
-        }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
-            drivetrain.stopMotors();
-            Timer.delay(0.5);
-            elevatorSubsystem.elevatorYukari();
-            if (yukariSwitch.get()){
-                System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
-                autonomousElevatorControl = true;
-                coralTimer = Timer.getFPGATimestamp();
-            }
-            System.out.println("Asansör Çalışıyor");
-
-        }
-        if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
+        if ( elapsedTime > 5 && elapsedTime <7){ // Coralı at
             autonomousElevatorControl = true;
-            coralSubsystem.intakeManuel(-0.4, -0.4);;
+            coralSubsystem.intakeManuel(-0.4, -0.4);
         }
-        if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+        else if ( elapsedTime >= 7){ 
             coralSubsystem.stopMotor();
-            elevatorSubsystem.elevatorAsagi();
+            // elevatorSubsystem.elevatorAsagi();
         }
+
+
+        // ! Otonom 3 (sol)
 
         System.out.println(elapsedTime);
         
@@ -156,6 +181,7 @@ public class Robot extends TimedRobot {
         // Alg Butonları
         boolean button3 = joystick.getRawButton(9);
         boolean button4 = joystick.getRawButton(10);
+        boolean button14 = joystick.getRawButton(14);
 
 
 
@@ -165,11 +191,14 @@ public class Robot extends TimedRobot {
             coralSubsystem.intakeIn();
         } else if (button2) {
             coralSubsystem.intakeOut();
-            if (photoSwitch.get()){
-                Timer.delay(1);
-                coralSubsystem.stopMotor();
-                elevatorSubsystem.elevatorAsagi();
-            }
+            // if (photoSwitch.get()){
+            //     Timer.delay(1);
+            //     coralSubsystem.stopMotor();
+            //     elevatorSubsystem.elevatorAsagi();
+            // }
+            Timer.delay(1);
+            coralSubsystem.stopMotor();
+            // elevatorSubsystem.elevatorAsagi();
         }else{
             coralSubsystem.stopMotor();
         }
@@ -181,13 +210,17 @@ public class Robot extends TimedRobot {
             algSubsystem.intakeIn();
         } else if (button4) {
             algSubsystem.intakeOut();
-        } else {
+        }else if (button14) {
+            algSubsystem.setDuvaraYaklasildi(true);
+        }
+         else {
             algSubsystem.stopMotor();
         }
 
 
         elevatorSubsystem.periodic();
         coralSubsystem.periodic();
+        algSubsystem.periodic();
 
         
         // ! ShuffleBoard Verileri Yazdırma
