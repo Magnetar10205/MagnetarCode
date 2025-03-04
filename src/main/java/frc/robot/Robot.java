@@ -36,8 +36,10 @@ public class Robot extends TimedRobot {
     private boolean CoralBos = false;
     private double coralElapsedTime;
     private boolean elevatorAsagida = false;
-        private Alliance alliance;
+    private Alliance alliance;
     private int startPosition;
+    private String autColor;
+    private int autStartPosition;
 
 
 
@@ -219,6 +221,43 @@ public class Robot extends TimedRobot {
         
 //     }
 
+private void redPosition1Routine(String alliance, int startPosition) {
+    this.autColor = alliance;
+    this.autStartPosition = startPosition;
+    System.out.println("Kırmızı 1. Pozisyon Otonomu Çalışıyor");
+    // Buraya hareket kodlarını yaz
+}
+
+private void redPosition2Routine(String alliance, int startPosition) {
+    this.autColor = alliance;
+    this.autStartPosition = startPosition;
+    System.out.println("Kırmızı 2. Pozisyon Otonomu Çalışıyor");
+}
+
+private void redPosition3Routine(String alliance, int startPosition) {
+    this.autColor = alliance;
+    this.autStartPosition = startPosition;
+    System.out.println("Kırmızı 3. Pozisyon Otonomu Çalışıyor");
+}
+
+private void bluePosition1Routine(String alliance, int startPosition) {
+    this.autColor = alliance;
+    this.autStartPosition = startPosition;
+    System.out.println("Mavi 1. Pozisyon Otonomu Çalışıyor");
+}
+
+private void bluePosition2Routine(String alliance, int startPosition) {
+    this.autColor = alliance;
+    this.autStartPosition = startPosition;
+    System.out.println("Mavi 2. Pozisyon Otonomu Çalışıyor");
+}
+
+private void bluePosition3Routine(String alliance, int startPosition) {
+    this.autColor = alliance;
+    this.autStartPosition = startPosition;
+    System.out.println("Mavi 3. Pozisyon Otonomu Çalışıyor");
+}
+
 
 
 
@@ -239,51 +278,41 @@ public void autonomousInit() {
     if (alliance == Alliance.Red) {
         // Kırmızı takım için rotalar
         if (startPosition == 1) {
-            redPosition1Routine();
+            redPosition1Routine(alliance.toString(),startPosition);
         } else if (startPosition == 2) {
-            redPosition2Routine();
+            redPosition2Routine(alliance.toString(),startPosition);
         } else if (startPosition == 3) {
-            redPosition3Routine();
+            redPosition3Routine(alliance.toString(),startPosition);
         }
     } else if (alliance == Alliance.Blue) {
         // Mavi takım için rotalar
         if (startPosition == 1) {
-            bluePosition1Routine();
+            bluePosition1Routine(alliance.toString(),startPosition);
         } else if (startPosition == 2) {
-            bluePosition2Routine();
+            bluePosition2Routine(alliance.toString(),startPosition);
         } else if (startPosition == 3) {
-            bluePosition3Routine();
+            bluePosition3Routine(alliance.toString(),startPosition);
         }
     }
 }
 
 
-    private void redPosition1Routine() {
-        System.out.println("Kırmızı 1. Pozisyon Otonomu Çalışıyor");
-        // Buraya hareket kodlarını yaz
-    }
 
-    private void redPosition2Routine() {
-        System.out.println("Kırmızı 2. Pozisyon Otonomu Çalışıyor");
-    }
 
-    private void redPosition3Routine() {
-        System.out.println("Kırmızı 3. Pozisyon Otonomu Çalışıyor");
-    }
+@Override
+public void autonomousPeriodic() {
+    double elapsedTime = Timer.getFPGATimestamp() - startTime;
 
-    private void bluePosition1Routine() {
-        System.out.println("Mavi 1. Pozisyon Otonomu Çalışıyor");
+    if (("Red".equals(autColor) && autStartPosition == 1) || ("Blue".equals(autColor) && autStartPosition == 3)) { // Kırmızı 1 Mavi 3
+        // ! Kırmızı 1 Mavi 3
     }
-
-    private void bluePosition2Routine() {
-        System.out.println("Mavi 2. Pozisyon Otonomu Çalışıyor");
+    else if (("Red".equals(autColor) && autStartPosition == 2) || ("Blue".equals(autColor) && autStartPosition == 2)) { // Kırmızı 2 Mavi 2
+        //! Kırmızı 2 Mavi 2
     }
-
-    private void bluePosition3Routine() {
-        System.out.println("Mavi 3. Pozisyon Otonomu Çalışıyor");
+    else if (("Red".equals(autColor) && autStartPosition == 3) || ("Blue".equals(autColor) && autStartPosition == 1)) { // Kırmızı 3 Mavi 1
+        //! Kırmızı 3 Mavi 1
+    }
 }
-
-
 
 
     @Override
