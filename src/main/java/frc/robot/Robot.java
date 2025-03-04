@@ -13,6 +13,8 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ElevatorCode;
 import frc.robot.subsystems.Alg;
 
+import java.lang.reflect.Type;
+
 import com.ctre.phoenix6.configs.ClosedLoopGeneralConfigs;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -132,7 +134,7 @@ public class Robot extends TimedRobot {
 
 
 
-//         // ! Otonom 2 ( Robot yanda)
+//         // ! Otonom 2 ( Robot yanda --- solda)
 
 //         // Düz bir şekilde ileri git hafif sola dön sonra tekrar ileri git ve kendini hizaladın
 //         // Bu kod yazılacak
@@ -222,12 +224,17 @@ public class Robot extends TimedRobot {
 
 @Override
 public void autonomousInit() {
+    alliance = DriverStation.getAlliance().orElse(null); 
+       
+    startPosition = DriverStation.getLocation().orElse(0);
     startTime = Timer.getFPGATimestamp();
     elevatorAsagida = false;
     autonomousElevatorControl = false;
     System.out.println("Otonom Başladı!");
     System.out.println("Alliance: " + alliance);
     System.out.println("Start Position: " + startPosition);
+    SmartDashboard.putString("Pozisyon Rengi", alliance.toString());
+    SmartDashboard.putNumber("Başlangıç Pozisyon Numarası", startPosition);
 
     if (alliance == Alliance.Red) {
         // Kırmızı takım için rotalar
