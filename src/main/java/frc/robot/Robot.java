@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
 //     @Override
 //     public void autonomousPeriodic() {
 //         double elapsedTime = Timer.getFPGATimestamp() - startTime;
-
+    
     
 //         // if (elapsedTime < 3.0) {
 //         //     drivetrain.NormalArcadeDrive(0, 0.6);
@@ -136,10 +136,11 @@ public class Robot extends TimedRobot {
 
 
 
-//         // ! Otonom 2 ( Robot yanda --- solda)
+//         // ! Otonom 2 ( Robot yanda --- sağda)
 
 //         // Düz bir şekilde ileri git hafif sola dön sonra tekrar ileri git ve kendini hizaladın
 //         // Bu kod yazılacak
+
 
 //         // if (elapsedTime < 2.35){ // Resifin yanına yaklaşma
 //         //     drivetrain.NormalArcadeDrive(0,0.65);
@@ -304,13 +305,134 @@ public void autonomousPeriodic() {
     double elapsedTime = Timer.getFPGATimestamp() - startTime;
 
     if (("Red".equals(autColor) && autStartPosition == 1) || ("Blue".equals(autColor) && autStartPosition == 3)) { // Kırmızı 1 Mavi 3
-        // ! Kırmızı 1 Mavi 3
+        // ! Kırmızı 1 Mavi 3 (sağ)
+
+        if (elapsedTime < 2.35){ // Resifin yanına yaklaşma
+            drivetrain.NormalArcadeDrive(0,0.65);
+        
+        }else if (elapsedTime >= 2.8 && elapsedTime <=3.95){
+            drivetrain.NormalArcadeDrive(-0.5,0);
+        
+        }else if (elapsedTime >= 3.95 && elapsedTime <= 4.3 ){
+            drivetrain.NormalArcadeDrive(0,0.6);
+
+        }
+        // }else if (!autonomousElevatorControl && elapsedTime > 3.7  && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
+        //     drivetrain.stopMotors();
+        //     Timer.delay(0.5);
+        //     elevatorSubsystem.elevatorYukari();
+        //     if (yukariSwitch.get()){
+        //         System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
+        //         autonomousElevatorControl = true;
+        //         coralTimer = Timer.getFPGATimestamp();
+        //     }
+        //     System.out.println("Asansör Çalışıyor");
+
+        // }
+
+                // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+        //     coralSubsystem.stopMotor();
+        //     // elevatorSubsystem.elevatorAsagi();
+        // }
+        if ( elapsedTime > 5 && elapsedTime <7){ // Coralı at
+            autonomousElevatorControl = true;
+            coralSubsystem.intakeManuel(-0.4, -0.4);
+        }
+        else if ( elapsedTime >= 7){ 
+            coralSubsystem.stopMotor();
+            // elevatorSubsystem.elevatorAsagi();
+        }
+
+
     }
     else if (("Red".equals(autColor) && autStartPosition == 2) || ("Blue".equals(autColor) && autStartPosition == 2)) { // Kırmızı 2 Mavi 2
-        //! Kırmızı 2 Mavi 2
+        //! Kırmızı 2 Mavi 2 (orta)
+        //         ! Otonom 1 (Robot Ortada)
+
+        if (elapsedTime < 2.7){ // Resifin yanına yaklaşma
+            drivetrain.NormalArcadeDrive(0,0.6);
+
+        }else if (!autonomousElevatorControl && elapsedTime > 3 && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
+            drivetrain.stopMotors();
+            Timer.delay(0.5);
+            // elevatorSubsystem.elevatorYukari();
+            // if (yukariSwitch.get()){
+            //     System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
+            //     autonomousElevatorControl = true;
+            //     coralTimer = Timer.getFPGATimestamp();
+            // }
+            // System.out.println("Asansör Çalışıyor");
+
+        }
+
+        // ! en altta coral alt ayraç
+        if ( elapsedTime > 3 && elapsedTime <6){ // Coralı at
+            autonomousElevatorControl = true;
+            coralSubsystem.intakeOut();
+        }
+        if (elapsedTime >= 6){ // Coral Durdur
+            coralSubsystem.stopMotor();
+            // elevatorSubsystem.elevatorAsagi();
+        }
+        // ! ayraç
+
+
+        // if ( elapsedTime > 7 && elapsedTime <9){ // Coralı at
+        //     autonomousElevatorControl = true;
+        //     coralSubsystem.intakeOut();
+        // }
+        // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+        //     coralSubsystem.stopMotor();
+        //     // elevatorSubsystem.elevatorAsagi();
+        // }
     }
+
+    
     else if (("Red".equals(autColor) && autStartPosition == 3) || ("Blue".equals(autColor) && autStartPosition == 1)) { // Kırmızı 3 Mavi 1
-        //! Kırmızı 3 Mavi 1
+        //! Kırmızı 3 Mavi 1 (Yanda)
+
+        
+        // ! Otonom 3 (sol)
+
+        if (elapsedTime < 2.4){ // Resifin yanına yaklaşma
+            drivetrain.NormalArcadeDrive(0,0.65);
+        
+        }else if (elapsedTime >= 2.8 && elapsedTime <=3.65){
+            drivetrain.NormalArcadeDrive(0.5,0);
+        
+        }else if (elapsedTime >= 3.5 && elapsedTime <= 4.3 ){
+            drivetrain.NormalArcadeDrive(0,0.6);
+
+        }
+        // }else if (!autonomousElevatorControl && elapsedTime > 3.7  && !yukariSwitch.get() ){ // Asansör yukarıya çıkar
+        //     drivetrain.stopMotors();
+        //     Timer.delay(0.5);
+        //     elevatorSubsystem.elevatorYukari();
+        //     if (yukariSwitch.get()){
+        //         System.out.println("Asansör bitti Yukarı Switch Çalışıyor");
+        //         autonomousElevatorControl = true;
+        //         coralTimer = Timer.getFPGATimestamp();
+        //     }
+        //     System.out.println("Asansör Çalışıyor");
+
+        // }
+
+                // if ( !elevatorAsagida &&elapsedTime >= 9){ // Asansörü aşağı indir
+        //     coralSubsystem.stopMotor();
+        //     // elevatorSubsystem.elevatorAsagi();
+        // }
+        if ( elapsedTime > 5 && elapsedTime <7){ // Coralı at
+            autonomousElevatorControl = true;
+            coralSubsystem.intakeManuel(-0.4, -0.4);
+        }
+        else if ( elapsedTime >= 7){ 
+            coralSubsystem.stopMotor();
+            // elevatorSubsystem.elevatorAsagi();
+        }
+
+        
+
+
     }
 }
 
